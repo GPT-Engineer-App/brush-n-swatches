@@ -10,6 +10,8 @@ const Index = () => {
   const [color, setColor] = useState("#000000");
   const [brushSize, setBrushSize] = useState(5);
   const [isDrawing, setIsDrawing] = useState(false);
+  const [selectedColorStyle, setSelectedColorStyle] = useState({});
+  const [selectedBrushStyle, setSelectedBrushStyle] = useState({});
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -48,6 +50,16 @@ const Index = () => {
     setIsDrawing(false);
   };
 
+  const handleSetColor = (col) => {
+    setColor(col);
+    setSelectedColorStyle({ border: `2px solid ${col}`, transform: 'scale(1.2)' });
+  };
+
+  const handleSetBrushSize = (size) => {
+    setBrushSize(size);
+    setSelectedBrushStyle({ border: '2px solid black', transform: 'scale(1.2)' });
+  };
+
   return (
     <Box position="relative" width="100vw" height="100vh">
       <canvas
@@ -69,9 +81,10 @@ const Index = () => {
                 aria-label={col}
                 icon={<FaCircle color={col} />}
                 size="lg"
-                onClick={() => setColor(col)}
+                onClick={() => handleSetColor(col)}
                 m={1}
                 isRound
+                style={color === col ? selectedColorStyle : {}}
               />
             ))}
           </Flex>
@@ -82,9 +95,10 @@ const Index = () => {
                 aria-label={`Brush size ${size}`}
                 icon={<Box as="span" width={`${size}px`} height={`${size}px`} borderRadius="50%" backgroundColor="black" />}
                 size="lg"
-                onClick={() => setBrushSize(size)}
+                onClick={() => handleSetBrushSize(size)}
                 m={1}
                 isRound
+                style={brushSize === size ? selectedBrushStyle : {}}
               />
             ))}
           </Flex>
