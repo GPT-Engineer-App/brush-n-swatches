@@ -16,6 +16,7 @@ const Index = () => {
     const context = canvas.getContext("2d");
     context.lineCap = "round";
     context.lineJoin = "round";
+    context.globalAlpha = 0.6; // Set global alpha for softer strokes
   }, []);
 
   const startDrawing = (e) => {
@@ -30,10 +31,15 @@ const Index = () => {
     if (!isDrawing) return;
     const { offsetX, offsetY } = e.nativeEvent;
     const context = canvasRef.current.getContext("2d");
+    const gradient = context.createRadialGradient(offsetX, offsetY, brushSize / 4, offsetX, offsetY, brushSize);
+    gradient.addColorStop(0, color);
+    gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+    context.fillStyle = gradient;
     context.lineTo(offsetX, offsetY);
     context.strokeStyle = color;
     context.lineWidth = brushSize;
     context.stroke();
+    context.fill();
   };
 
   const stopDrawing = () => {
