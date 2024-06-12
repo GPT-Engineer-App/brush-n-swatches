@@ -25,7 +25,9 @@ const Index = () => {
     const { offsetX, offsetY } = e.nativeEvent;
     const context = canvasRef.current.getContext("2d");
     context.beginPath();
-    context.moveTo(offsetX, offsetY);
+    context.arc(offsetX, offsetY, brushSize / 2, 0, Math.PI * 2);
+    context.fillStyle = color;
+    context.fill();
     setIsDrawing(true);
   };
 
@@ -33,20 +35,13 @@ const Index = () => {
     if (!isDrawing) return;
     const { offsetX, offsetY } = e.nativeEvent;
     const context = canvasRef.current.getContext("2d");
-    const gradient = context.createRadialGradient(offsetX, offsetY, brushSize / 4, offsetX, offsetY, brushSize);
-    gradient.addColorStop(0, color);
-    gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-    context.fillStyle = gradient;
-    context.lineTo(offsetX, offsetY);
-    context.strokeStyle = color;
-    context.lineWidth = brushSize;
-    context.stroke();
+    context.beginPath();
+    context.arc(offsetX, offsetY, brushSize / 2, 0, Math.PI * 2);
+    context.fillStyle = color;
     context.fill();
   };
 
   const stopDrawing = () => {
-    const context = canvasRef.current.getContext("2d");
-    context.closePath();
     setIsDrawing(false);
   };
 
