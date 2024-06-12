@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { Box, Flex, IconButton, VStack } from "@chakra-ui/react";
 import { FaCircle } from "react-icons/fa";
 
-const colors = ["#6d4c41", "#8d6e63", "#a1887f", "#d7ccc8", "#bcaaa4", "#4e342e", "#3e2723"];
+const colors = ["#FF0000", "#0000FF", "#FFFF00", "#000000", "#FFFFFF"];
 const brushSizes = [5, 10, 15, 20, 25];
 
 const Index = () => {
